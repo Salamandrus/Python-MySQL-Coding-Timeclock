@@ -1,0 +1,44 @@
+    # COMMENTS #
+    # PYTHON CODE START #
+
+import mysql.connector
+
+mydb = mysql.connector.connect(host='localhost', user='root', password='Wyvern42!', database='testdb')
+
+mycursor = mydb.cursor()
+
+mycursor.execute(
+    ""
+)
+    # PYTHON CODE END #
+
+    # SQL CODE START #
+
+    # BUTTON 1 - CONFIGURE CONNECTION #
+Create code which modifies my.sql.connector.connect(host='', user='', password='', database='') based on input()
+
+    # BUTTON 2 - NEW DATABASE #
+CREATE DATABASE input('Enter new database name here: ')
+
+    # BUTTON 3 - SHOW DATABASES #
+SHOW DATABASES
+print
+
+    # BUTTON 4 - NEW USER #
+    # BUTTON 5 - VIEW USERS #
+SHOW TABLES
+print
+
+    # BUTTON 6 - VIEW TIMESTAMPS #
+    # BUTTON 7 - PUNCH IN #
+INSERT INTO table_name, (input())
+    # BUTTON 8 - ABOUT #
+print README
+
+    # SQL CODE END #
+
+    # COMBINED CODE START #
+
+
+
+    # COMBINED CODE END #
