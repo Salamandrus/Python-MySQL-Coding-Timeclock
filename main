@@ -25,13 +25,15 @@ SHOW DATABASES
 print
 
     # BUTTON 4 - NEW USER #
+CREATE TABLE
     # BUTTON 5 - VIEW USERS #
 SHOW TABLES
 print
 
     # BUTTON 6 - VIEW TIMESTAMPS #
     # BUTTON 7 - PUNCH IN #
-INSERT INTO table_name, (input())
+INSERT INTO table_name
+VALUES (id, CURRENT_DATE, CURRENT_TIMESTAMP, 'input('Enter location: '))'
     # BUTTON 8 - ABOUT #
 print README
 
