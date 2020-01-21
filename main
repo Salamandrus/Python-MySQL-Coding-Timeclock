@@ -25,7 +25,14 @@ SHOW DATABASES
 print
 
     # BUTTON 4 - NEW USER #
-CREATE TABLE
+CREATE TABLE tablename (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+DATE,
+TIMESTAMP,
+Location VARCHAR(30),
+Punch In VARCHAR(5),
+Punch Out VARCHAR (5),
+)
     # BUTTON 5 - VIEW USERS #
 SHOW TABLES
 print
@@ -33,8 +40,11 @@ print
     # BUTTON 6 - VIEW TIMESTAMPS #
     # BUTTON 7 - PUNCH IN #
 INSERT INTO table_name
-VALUES (id, CURRENT_DATE, CURRENT_TIMESTAMP, 'input('Enter location: '))'
-    # BUTTON 8 - ABOUT #
+VALUES (id, CURRENT_DATE, CURRENT_TIMESTAMP, 'input('Enter location: '), 'True', 'False')'
+    # BUTTON 8 - PUNCH OUT #
+INSERT INTO table_name
+VALUES (id, CURRENT_DATE, CURRENT_TIMESTAMP, 'input('Enter location: '), 'False', 'True')'
+    # BUTTON 9 - ABOUT #
 print README
 
     # SQL CODE END #
