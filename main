@@ -1,56 +1,77 @@
-    # COMMENTS #
-    # PYTHON CODE START #
 
+from tkinter import *
+from tkinter import ttk
 import mysql.connector
 
 mydb = mysql.connector.connect(host='localhost', user='root', password='Wyvern42!', database='testdb')
 
 mycursor = mydb.cursor()
 
-mycursor.execute(
-    ""
-)
-    # PYTHON CODE END #
+#coding-timeclock-database-gui-design--#
+#----CURRENT CONNECTION INFORMATION----#
+#-------SAVED CONNECTION DROPDOWN------#
+#---[B1]---[B3]---[B5]---[B7]---[B9]---#
+#---[B2]---[B4]---[B6]---[B8]---[B10]--#
+#--------------------------------------#
 
-    # SQL CODE START #
+config_c = 1
 
-    # BUTTON 1 - CONFIGURE CONNECTION #
-Create code which modifies my.sql.connector.connect(host='', user='', password='', database='') based on input()
+save_c = 2
 
-    # BUTTON 2 - NEW DATABASE #
-CREATE DATABASE input('Enter new database name here: ')
+show_dbs = 'mycursor.execute(\'SHOW DATABASES\')'
 
-    # BUTTON 3 - SHOW DATABASES #
-SHOW DATABASES
-print
+create_db = 'mycursor.execute(\'CREATE DATABASE\')'
 
-    # BUTTON 4 - NEW USER #
-CREATE TABLE tablename (
-id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-DATE,
-TIMESTAMP,
-Location VARCHAR(30),
-Punch In VARCHAR(5),
-Punch Out VARCHAR (5),
-)
-    # BUTTON 5 - VIEW USERS #
-SHOW TABLES
-print
+show_users = 'mycursor.execute(\'SHOW TABLES\')'
 
-    # BUTTON 6 - VIEW TIMESTAMPS #
-    # BUTTON 7 - PUNCH IN #
-INSERT INTO table_name
-VALUES (id, CURRENT_DATE, CURRENT_TIMESTAMP, 'input('Enter location: '), 'True', 'False')'
-    # BUTTON 8 - PUNCH OUT #
-INSERT INTO table_name
-VALUES (id, CURRENT_DATE, CURRENT_TIMESTAMP, 'input('Enter location: '), 'False', 'True')'
-    # BUTTON 9 - ABOUT #
-print README
+create_user = 'mycursor.execute(\'CREATE TABLE (CREATE TABLENAME INPUT)\')'
 
-    # SQL CODE END #
+clock_in = 'mycursor.execute('
+'INSERT INTO (TABLENAME VARIABLE)'
+'VALUES (id, CURRENT_DATE, CURRENT_TIME, \'(LOCATION VARIABLE)\', \'True\', \'False\');'
+')'
 
-    # COMBINED CODE START #
+clock_out = 'mycursor.execute('
+'INSERT INTO (TABLENAME VARIABLE)'
+'VALUES (id, CURRENT_DATE, CURRENT_TIME, \'(LOCATION VARIABLE)\', \'False\', \'True\');'
+')'
 
+show_tcs = 5
 
+show_readme = 6
 
-    # COMBINED CODE END #
+root = Tk()
+root.title("Coding Timeclock Database")
+
+mainframe = ttk.Frame(root, padding="3 3 12 12")
+mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
+
+ttk.Label(mainframe,
+text="host='localhost', user='root', password='Wyvern42!', database='testdb'").grid(columnspan=5, column=1, row=1,
+sticky=W)
+
+default_option = StringVar(root)
+choices = { 'Connection 1','Connection 2','Connection 3','Connection 4','Connection 5'}
+default_option.set('Connection 1')
+popupMenu = OptionMenu(mainframe, default_option, *choices)
+Label(mainframe, text="Saved Connections").grid(columnspan=5, row = 1, column = 2)
+
+popupMenu.grid(row = 2, column =1)
+ttk.Button(mainframe, text="Configure Connection", command=show_users).grid(column=1, row=3, sticky=W)
+ttk.Button(mainframe, text="Save Current Connection", command=show_users).grid(column=1, row=4, sticky=W)
+ttk.Button(mainframe, text="Show Databases", command=show_users).grid(column=2, row=3, sticky=W)
+ttk.Button(mainframe, text="Create Database", command=show_users).grid(column=2, row=4, sticky=W)
+ttk.Button(mainframe, text="Show Users", command=show_users).grid(column=3, row=3, sticky=W)
+ttk.Button(mainframe, text="Create User", command=show_users).grid(column=3, row=4, sticky=W)
+ttk.Button(mainframe, text="Clock In", command=show_users).grid(column=4, row=3, sticky=W)
+ttk.Button(mainframe, text="Clock Out", command=show_users).grid(column=4, row=4, sticky=W)
+ttk.Button(mainframe, text="Show Timecards", command=show_users).grid(column=5, row=3, sticky=W)
+ttk.Button(mainframe, text="About", command=show_users).grid(column=5, row=4, sticky=W)
+
+for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
+
+root.bind('<Return>', show_users)
+
+root.mainloop()
