@@ -3,10 +3,6 @@ from tkinter import *
 from tkinter import ttk
 import mysql.connector
 
-mydb = mysql.connector.connect(host='localhost', user='root', password='Wyvern42!', database='testdb')
-
-mycursor = mydb.cursor()
-
 #coding-timeclock-database-gui-design--#
 #----CURRENT CONNECTION INFORMATION----#
 #-------SAVED CONNECTION DROPDOWN------#
@@ -14,61 +10,70 @@ mycursor = mydb.cursor()
 #---[B2]---[B4]---[B6]---[B8]---[B10]--#
 #--------------------------------------#
 
-config_c = 1
 
-save_c = 2
-
-show_dbs = 'mycursor.execute(\'SHOW DATABASES\')'
-
-create_db = 'mycursor.execute(\'CREATE DATABASE\')'
-
-show_users = 'mycursor.execute(\'SHOW TABLES\')'
-
-create_user = 'mycursor.execute(\'CREATE TABLE (CREATE TABLENAME INPUT)\')'
-
-clock_in = 'mycursor.execute('
-'INSERT INTO (TABLENAME VARIABLE)'
-'VALUES (id, CURRENT_DATE, CURRENT_TIME, \'(LOCATION VARIABLE)\', \'True\', \'False\');'
-')'
-
-clock_out = 'mycursor.execute('
-'INSERT INTO (TABLENAME VARIABLE)'
-'VALUES (id, CURRENT_DATE, CURRENT_TIME, \'(LOCATION VARIABLE)\', \'False\', \'True\');'
-')'
-
-show_tcs = 5
-
-show_readme = 6
-
+mydb = mysql.connector.connect(host='localhost', user='root', password='Wyvern42!', database='testdb')
+mycursor = mydb.cursor()
 root = Tk()
 root.title("Coding Timeclock Database")
-
 mainframe = ttk.Frame(root, padding="3 3 12 12")
 mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 
+ttk.Label(mainframe, text='Current Connection:').grid(columnspan=5, column=1, row=1, sticky=W)
 ttk.Label(mainframe,
-text="host='localhost', user='root', password='Wyvern42!', database='testdb'").grid(columnspan=5, column=1, row=1,
+text="host='localhost', user='root', password='Wyvern42!', database='testdb'").grid(columnspan=5, column=1, row=2,
 sticky=W)
+# Substitute above with current connection variable?
 
+# SAVED CONNECTIONS DROPDOWN #
+Label(mainframe, text="Saved Connections:").grid(columnspan=5, row=3, column=1, sticky=W)
 default_option = StringVar(root)
 choices = { 'Connection 1','Connection 2','Connection 3','Connection 4','Connection 5'}
 default_option.set('Connection 1')
 popupMenu = OptionMenu(mainframe, default_option, *choices)
-Label(mainframe, text="Saved Connections").grid(columnspan=5, row = 1, column = 2)
+popupMenu.grid(columnspan=5, row = 3, column=2, sticky=W)
 
-popupMenu.grid(row = 2, column =1)
-ttk.Button(mainframe, text="Configure Connection", command=show_users).grid(column=1, row=3, sticky=W)
-ttk.Button(mainframe, text="Save Current Connection", command=show_users).grid(column=1, row=4, sticky=W)
-ttk.Button(mainframe, text="Show Databases", command=show_users).grid(column=2, row=3, sticky=W)
-ttk.Button(mainframe, text="Create Database", command=show_users).grid(column=2, row=4, sticky=W)
-ttk.Button(mainframe, text="Show Users", command=show_users).grid(column=3, row=3, sticky=W)
-ttk.Button(mainframe, text="Create User", command=show_users).grid(column=3, row=4, sticky=W)
-ttk.Button(mainframe, text="Clock In", command=show_users).grid(column=4, row=3, sticky=W)
-ttk.Button(mainframe, text="Clock Out", command=show_users).grid(column=4, row=4, sticky=W)
-ttk.Button(mainframe, text="Show Timecards", command=show_users).grid(column=5, row=3, sticky=W)
-ttk.Button(mainframe, text="About", command=show_users).grid(column=5, row=4, sticky=W)
+# BUTTON COMMAND VARIABLES WITH COMMENTS BENEATH #
+config_c = 1
+# Use current connection variable? Add delete configuration option and select user/table option
+save_c = 2
+# Edit dropdown menu to create new config option
+show_dbs = 'mycursor.execute(\'SHOW DATABASES\')'
+# return result as string displayed on popup in GUI
+create_db = 'mycursor.execute(\'CREATE DATABASE\')'
+# popup with user input
+show_users = 'mycursor.execute(\'SHOW TABLES\')'
+# return result as string displayed on popup in GUI
+create_user = 'mycursor.execute(\'CREATE TABLE sometablename\')'
+# popup with user input
+clock_in = 'mycursor.execute(INSERT INTO Matthew'
+'VALUES (id, CURRENT_DATE, CURRENT_TIME, \'UCB Library\', \'True\', \'False\');'
+')'
+# popup with user input for location, opposite clock button greyed out while the other is active
+clock_out = 'mycursor.execute(INSERT INTO Matthew'
+'VALUES (id, CURRENT_DATE, CURRENT_TIME, \'UCB Library\', \'False\', \'True\');'
+')'
+# location set by clock_in input, opposite clock button greyed out while the other is active
+show_tcs = 'mycursor.execute(SELECT * FROM Matthew)'
+# popup box with options to display by date, by user and to display all, return result as string in popup in GUI
+show_readme = 6
+# Display a popup window with a description of the commands and prior to that, installation instructions for
+# MySQL and MySQL Workbench to be able to have the software interface with it
+# BUTTON COMMAND VARIABLES WITH COMMENTS BENEATH #
+
+# COMMAND BUTTONS #
+ttk.Button(mainframe, text="Configure Connection", command=config_c).grid(column=1, row=4, sticky=W)
+ttk.Button(mainframe, text="Save Current Connection", command=save_c).grid(column=1, row=5, sticky=W)
+ttk.Button(mainframe, text="Show Databases", command=show_dbs).grid(column=2, row=4, sticky=W)
+ttk.Button(mainframe, text="Create Database", command=create_db).grid(column=2, row=5, sticky=W)
+ttk.Button(mainframe, text="Show Users", command=show_users).grid(column=3, row=4, sticky=W)
+ttk.Button(mainframe, text="Create User", command=create_user).grid(column=3, row=5, sticky=W)
+ttk.Button(mainframe, text="Clock In", command=clock_in).grid(column=4, row=4, sticky=W)
+ttk.Button(mainframe, text="Clock Out", command=clock_out).grid(column=4, row=5, sticky=W)
+ttk.Button(mainframe, text="Show Timecards", command=show_tcs).grid(column=5, row=4, sticky=W)
+ttk.Button(mainframe, text="About", command=show_users).grid(column=5, row=5, sticky=W)
+# COMMAND BUTTONS #
 
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 
